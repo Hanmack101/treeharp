@@ -84,7 +84,7 @@ float angleAtMinDist = 0;
 
  void initiate5String()
  {
-    if(minDistance > 1 && minDistance <200 ){
+    if(minDistance > 150 && minDistance <200 ){
         tone(PIEZO_PIN, NOTES[0]);
         Serial.println("playing segment 0");
         
@@ -110,6 +110,12 @@ float angleAtMinDist = 0;
                     tone(PIEZO_PIN, NOTES[4]);
                     Serial.println("playing segment 4");
                     }   
+
+                        else if (minDistance > 149 && minDistance > 401){
+                            noTone(PIEZO_PIN);
+                            Serial.println("FUNCTION I am not playing sound from the FUNCTION");
+                            return;
+                        }
    }
 
 // END OF FUNCTIONS ------------------------------------------------------------------------------ //
@@ -129,16 +135,14 @@ void loop()
     {
       if (minDistance < 100000)
       {
-         
-           if(minDistance > 1 && minDistance < 500) // adjustable doughnut ring //add angle condition here (and keep calling twinkle)
-           { 
             initiate5String();
-             }
-             else 
+            Serial.println(minDistance);    
+        }
+        else 
              { 
                 noTone(PIEZO_PIN);
+                Serial.println("LOOP I am not playing sound from the LOOP"); 
              }
-    }
     }
     
       else
@@ -147,6 +151,7 @@ void loop()
         {
           minDistance = distance;
           angleAtMinDist = angle;
+          Serial.println("I am not resetting");
         }
       }
   }
