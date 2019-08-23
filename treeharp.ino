@@ -86,29 +86,29 @@ float angleAtMinDist = 0;
  {
     if(minDistance > 150 && minDistance <200 ){
         tone(PIEZO_PIN, NOTES[0]);
-        Serial.println("playing segment 0");
+        Serial.println("playing segment 1");
         
     } 
         if(minDistance > 200 && minDistance <300 ){
         tone(PIEZO_PIN, NOTES[1]);
-        Serial.println("playing segment 1");
+        Serial.println("playing segment 2");
         
         } 
 
             if(minDistance > 300 && minDistance <400 ){
             tone(PIEZO_PIN, NOTES[2]);
-            Serial.println("playing segment 2");
+            Serial.println("playing segment 3");
         
             } 
 
-                 if(minDistance > 300 && minDistance <400 ){
+                 if(minDistance > 400 && minDistance <500 ){
                 tone(PIEZO_PIN, NOTES[3]);
-                Serial.println("playing segment 3");
+                Serial.println("playing segment 4");
                  } 
 
-                     if(minDistance > 300 && minDistance <400 ){
+                     if(minDistance > 500 && minDistance <600 ){
                     tone(PIEZO_PIN, NOTES[4]);
-                    Serial.println("playing segment 4");
+                    Serial.println("playing segment 5");
                     }   
 
                         else if (minDistance > 149 && minDistance > 401){
@@ -151,7 +151,7 @@ void loop()
         {
           minDistance = distance;
           angleAtMinDist = angle;
-          Serial.println("I am not resetting");
+          //Serial.println("I am not resetting");
         }
       }
   }
