@@ -47,9 +47,12 @@ CRGB leds[16];
 
 // Need GDE for twinkle twinkle G 392  D 294 E 330
 const int NOTES[] = {
-  392,  //G
-  294,  //D
-  330}; //E 
+    330, // E
+    349, // F
+    392, // G
+    440, // A
+    494 // B
+    };
   
 const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 
@@ -76,24 +79,37 @@ float angleAtMinDist = 0;
 
 // FUNCTIONS ------------------------------------------------------------------------------ //
 
-//------ BASIC SPACE SEGMENTER ------
-//  void therminFunction(){
-//    tone(PIEZO_PIN, angleAtMinDist + 100);
-//  }
-
-//------ BASIC SPACE SEGMENTER ------
-//   void bLedFunction( ){
-//    if(angleAtMinDist <180){
-//      tone(PIEZO_PIN, NOTES[1]);//  ~ key C
-//      Serial.println("blue light");
-//      }
-//  }
-
 //------NESTED IF/ELSE SPACE SEGMENTER------
 //void divideSpace(){} - use later
- void twinkle()
+
+ void initiate5String()
  {
-        Serial.print("I am calling twinkle");
+    if(minDistance > 1 && minDistance <200 ){
+        tone(PIEZO_PIN, NOTES[0]);
+        Serial.println("playing segment 0");
+        
+    } 
+        if(minDistance > 200 && minDistance <300 ){
+        tone(PIEZO_PIN, NOTES[1]);
+        Serial.println("playing segment 1");
+        
+        } 
+
+            if(minDistance > 300 && minDistance <400 ){
+            tone(PIEZO_PIN, NOTES[2]);
+            Serial.println("playing segment 2");
+        
+            } 
+
+                 if(minDistance > 300 && minDistance <400 ){
+                tone(PIEZO_PIN, NOTES[3]);
+                Serial.println("playing segment 3");
+                 } 
+
+                     if(minDistance > 300 && minDistance <400 ){
+                    tone(PIEZO_PIN, NOTES[4]);
+                    Serial.println("playing segment 4");
+                    }   
    }
 
 // END OF FUNCTIONS ------------------------------------------------------------------------------ //
@@ -113,13 +129,10 @@ void loop()
     {
       if (minDistance < 100000)
       {
-         Serial.println("ready to proceede with Harp playing");
-           
-           if(minDistance > 100 && minDistance < 250) // adjustable doughnut ring //add angle condition here (and keep calling twinkle)
+         
+           if(minDistance > 1 && minDistance < 500) // adjustable doughnut ring //add angle condition here (and keep calling twinkle)
            { 
-            twinkle();
-            
-
+            initiate5String();
              }
              else 
              { 
