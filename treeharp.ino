@@ -111,7 +111,7 @@ float angleAtMinDist = 0;
                     Serial.println("playing segment 5");
                     }   
 
-                        else if (minDistance > 149 && minDistance > 601){
+                        else if (minDistance > 149 || minDistance > 601){
                             noTone(PIEZO_PIN);
                             Serial.println("FUNCTION I am not playing sound from the FUNCTION");
                             return;
