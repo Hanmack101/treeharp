@@ -48,10 +48,10 @@ CRGB leds[16];
 // Need GDE for twinkle twinkle G 392  D 294 E 330
 const int NOTES[] = {
     330, // E
-    349, // F
-    392, // G
-    440, // A
-    494 // B
+    494, // B
+    // 392, // G
+    // 440, // A
+    // 494 // B
     };
   
 const byte PIEZO_PIN = 6; //connct buzzer to pin 6
@@ -81,26 +81,36 @@ float angleAtMinDist = 0;
 
 //------NESTED IF/ELSE SPACE SEGMENTER------
 //void divideSpace(){} - use later
- int maxDist = 1000; 
- int b = maxDist/ NOTES.length;
+ 
+  int maxDist = 1000; 
 
- int chunkNum = minDistance/b
+  // - found this as  an alternative to .length > int num_elements = sizeof( array ) / sizeof( array[0] );
 
- if (chunkNum >= NOTES.b){
-      chunkNum = NOTES.length -1
- }
+
+  int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
+  int b = maxDist/ noteArrayLength;
+  int chunkNum = minDistance/b;
+
+
 
  void playNotes(){
 
-     if(chunkNum = 1){
-        tone(PIEZO_PIN, NOTES[0]);
+ if (chunkNum > 0 && chunkNum < 1){
+    tone(PIEZO_PIN, NOTES[0]);
         Serial.println("playing segment 1");
-      }
+ }
 
-        if(chunkNum = 2){
-        tone(PIEZO_PIN, NOTES[1]);
-        Serial.println("playing segment 2");
-        }
+    if (chunkNum > 1 && chunkNum < 0){
+      tone(PIEZO_PIN, NOTES[1]);
+      Serial.println("playing segment 2");
+    }
+
+        if (chunkNum > 2 && chunkNum < 3){
+          tone(PIEZO_PIN, NOTES[2]);
+          Serial.println("playing segment 3");
+    }
+
+
  }
  
 //  void initiate5String()
