@@ -81,42 +81,63 @@ float angleAtMinDist = 0;
 
 //------NESTED IF/ELSE SPACE SEGMENTER------
 //void divideSpace(){} - use later
+ int maxDist = 1000; 
+ int b = maxDist/ NOTES.length;
 
- void initiate5String()
- {
-    if(minDistance > 150 && minDistance <200 ){
+ int chunkNum = minDistance/b
+
+ if (chunkNum >= NOTES.b){
+      chunkNum = NOTES.length -1
+ }
+
+ void playNotes(){
+
+     if(chunkNum = 1){
         tone(PIEZO_PIN, NOTES[0]);
         Serial.println("playing segment 1");
-        
-    } 
-        if(minDistance > 200 && minDistance <300 ){
+      }
+
+        if(chunkNum = 2){
         tone(PIEZO_PIN, NOTES[1]);
         Serial.println("playing segment 2");
+        }
+ }
+ 
+//  void initiate5String()
+//  {
+//     if(minDistance > 150 && minDistance <200 ){
+//         tone(PIEZO_PIN, NOTES[0]);
+//         Serial.println("playing segment 1");
         
-        } 
-
-            if(minDistance > 300 && minDistance <400 ){
-            tone(PIEZO_PIN, NOTES[2]);
-            Serial.println("playing segment 3");
+//     } 
+//         if(minDistance > 200 && minDistance <300 ){
+//         tone(PIEZO_PIN, NOTES[1]);
+//         Serial.println("playing segment 2");
         
-            } 
+//         } 
 
-                 if(minDistance > 400 && minDistance <500 ){
-                tone(PIEZO_PIN, NOTES[3]);
-                Serial.println("playing segment 4");
-                 } 
+//             if(minDistance > 300 && minDistance <400 ){
+//             tone(PIEZO_PIN, NOTES[2]);
+//             Serial.println("playing segment 3");
+        
+//             } 
 
-                     if(minDistance > 500 && minDistance <600 ){
-                    tone(PIEZO_PIN, NOTES[4]);
-                    Serial.println("playing segment 5");
-                    }   
+//                  if(minDistance > 400 && minDistance <500 ){
+//                 tone(PIEZO_PIN, NOTES[3]);
+//                 Serial.println("playing segment 4");
+//                  } 
 
-                        else if (minDistance < 149 || minDistance > 601){
-                            noTone(PIEZO_PIN);
-                            Serial.println("FUNCTION I am not playing sound from the FUNCTION");
-                            return;
-                        }
-   }
+//                      if(minDistance > 500 && minDistance <600 ){
+//                     tone(PIEZO_PIN, NOTES[4]);
+//                     Serial.println("playing segment 5");
+//                     }   
+
+//                         else if (minDistance < 149 || minDistance > 601){
+//                             noTone(PIEZO_PIN);
+//                             Serial.println("FUNCTION I am not playing sound from the FUNCTION");
+//                             return;
+//                         }
+//    }
 
 // END OF FUNCTIONS ------------------------------------------------------------------------------ //
 
@@ -135,7 +156,7 @@ void loop()
     {
       if (minDistance < 100000)
       {
-            initiate5String();
+            playNotes();
             Serial.println(minDistance);    
         }
         else 
