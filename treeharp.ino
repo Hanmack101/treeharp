@@ -49,7 +49,7 @@ CRGB leds[16];
 const int NOTES[] = {
     330, // E
     494, // B
-    // 392, // G
+    392 // G
     // 440, // A
     // 494 // B
     };
@@ -61,6 +61,14 @@ const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 float minDistance = 100000;
 float angleAtMinDist = 0;
 
+  int maxDist = 1000;   
+  int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
+  int b = maxDist/ noteArrayLength;
+  int chunkNum = 1;
+  
+
+  
+
 // SETUP ------------------------------------------------------------------
 
     void setup()
@@ -70,6 +78,8 @@ float angleAtMinDist = 0;
       FastLED.addLeds<NEOPIXEL, 6>(leds, 16);
       
       Serial.begin(9600);
+      Serial.print("The length of the array is");
+      Serial.println(noteArrayLength);
     
     // set pin modes
       pinMode(RPLIDAR_MOTOR, OUTPUT);
@@ -82,36 +92,34 @@ float angleAtMinDist = 0;
 //------NESTED IF/ELSE SPACE SEGMENTER------
 //void divideSpace(){} - use later
  
-  int maxDist = 1000; 
+  
 
   // - found this as  an alternative to .length > int num_elements = sizeof( array ) / sizeof( array[0] );
 
 
-  int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
-  int b = maxDist/ noteArrayLength;
-  int chunkNum = minDistance/b;
 
 
 
  void playNotes(){
+Serial.print("chunkNum in function is");
+Serial.println(chunkNum);
+chunkNum = minDistance/b;
 
- if (chunkNum > 0 && chunkNum < 1){
+ if (chunkNum >= 0.1 && chunkNum <= 1){
     tone(PIEZO_PIN, NOTES[0]);
         Serial.println("playing segment 1");
  }
 
-    if (chunkNum > 1 && chunkNum < 0){
+    if (chunkNum >= 1.1 && chunkNum <= 2){
       tone(PIEZO_PIN, NOTES[1]);
       Serial.println("playing segment 2");
     }
 
-        if (chunkNum > 2 && chunkNum < 3){
+        if (chunkNum > 2.1 && chunkNum < 3){
           tone(PIEZO_PIN, NOTES[2]);
           Serial.println("playing segment 3");
     }
-
-
- }
+}
  
 //  void initiate5String()
 //  {
@@ -166,8 +174,11 @@ void loop()
     {
       if (minDistance < 100000)
       {
+            
             playNotes();
-            Serial.println(minDistance);    
+            Serial.println(minDistance);  
+            Serial.print("The current chunkNum is "); 
+            Serial.println(chunkNum);  
         }
         else 
              { 
@@ -175,6 +186,7 @@ void loop()
                 Serial.println("LOOP I am not playing sound from the LOOP"); 
              }
       minDistance = 100000;
+      //chunkNum = 11;
     }
     
       else
@@ -183,6 +195,7 @@ void loop()
         {
           minDistance = distance;
           angleAtMinDist = angle;
+          //chunkNum = 0;
           //Serial.println("I am not resetting");
         }
       }
