@@ -46,12 +46,13 @@ CRGB leds[16];
 // ADDING PIEZO COMPONENTS ------------------------------------------------------------------
 
 // Need GDE for twinkle twinkle G 392  D 294 E 330
+//if you need more than 4 notes, at the moment you will need to manually add to the function.
 const int NOTES[] = {
     330, // E
     494, // B
-    392 // G
-    // 440, // A
-    // 494 // B
+    392, // G
+    440, // A
+    494 // B
     };
   
 const byte PIEZO_PIN = 6; //connct buzzer to pin 6
@@ -89,16 +90,7 @@ float angleAtMinDist = 0;
 
 // FUNCTIONS ------------------------------------------------------------------------------ //
 
-//------NESTED IF/ELSE SPACE SEGMENTER------
-//void divideSpace(){} - use later
- 
-  
-
   // - found this as  an alternative to .length > int num_elements = sizeof( array ) / sizeof( array[0] );
-
-
-
-
 
  void playNotes(){
   chunkNum = minDistance/b;
@@ -117,6 +109,10 @@ float angleAtMinDist = 0;
           tone(PIEZO_PIN, NOTES[2]);
           Serial.println("playing segment 3");
         }
+            if (chunkNum >= 3.1 && chunkNum <= 4){
+              tone(PIEZO_PIN, NOTES[3]);
+              Serial.println("playing segment 4");
+        }
 
           else if (chunkNum > (noteArrayLength + 1)){
                  noTone(PIEZO_PIN);
@@ -124,42 +120,6 @@ float angleAtMinDist = 0;
           }
 }
  
-//  void initiate5String()
-//  {
-//     if(minDistance > 150 && minDistance <200 ){
-//         tone(PIEZO_PIN, NOTES[0]);
-//         Serial.println("playing segment 1");
-        
-//     } 
-//         if(minDistance > 200 && minDistance <300 ){
-//         tone(PIEZO_PIN, NOTES[1]);
-//         Serial.println("playing segment 2");
-        
-//         } 
-
-//             if(minDistance > 300 && minDistance <400 ){
-//             tone(PIEZO_PIN, NOTES[2]);
-//             Serial.println("playing segment 3");
-        
-//             } 
-
-//                  if(minDistance > 400 && minDistance <500 ){
-//                 tone(PIEZO_PIN, NOTES[3]);
-//                 Serial.println("playing segment 4");
-//                  } 
-
-//                      if(minDistance > 500 && minDistance <600 ){
-//                     tone(PIEZO_PIN, NOTES[4]);
-//                     Serial.println("playing segment 5");
-//                     }   
-
-//                         else if (minDistance < 149 || minDistance > 601){
-//                             noTone(PIEZO_PIN);
-//                             Serial.println("FUNCTION I am not playing sound from the FUNCTION");
-//                             return;
-//                         }
-//    }
-
 // END OF FUNCTIONS ------------------------------------------------------------------------------ //
 
 // SETUP ------------------------------------------------------------------
