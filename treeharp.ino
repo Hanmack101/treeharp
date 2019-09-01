@@ -68,7 +68,7 @@ const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 float minDistance = 100000;
 float angleAtMinDist = 0;
 
-  int maxDist = 500;   
+  int maxDist = 400;   
   int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
   int b = maxDist/ noteArrayLength;
   int chunkNum = 1;
@@ -89,6 +89,7 @@ float angleAtMinDist = 0;
       Serial.println(noteArrayLength);
       Serial.print("The size of each chunk is: ");
       Serial.println(b);
+
     
     // set pin modes
       pinMode(RPLIDAR_MOTOR, OUTPUT);
@@ -170,7 +171,13 @@ void loop()
             playNotes();
             Serial.println(minDistance);  
             Serial.print("The current chunkNum is "); 
-            Serial.println(chunkNum);  
+            Serial.println(chunkNum); 
+
+          if (b <= 123) {
+                Serial.println("WARNING: NO TONE CHUNK SIZE TOO SMALL TO ACCOMODATE CLOSEST SOUND.");
+                Serial.println ( "INCREASE maxDist OR REDUCE NUMBER OF ITEMS IN NOTES ARRAY");
+                noTone(PIEZO_PIN);
+          } 
         }
         else 
              { 
