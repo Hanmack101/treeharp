@@ -61,7 +61,7 @@ const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 float minDistance = 100000;
 float angleAtMinDist = 0;
 
-  int maxDist = 1000;   
+  int maxDist = 300;   
   int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
   int b = maxDist/ noteArrayLength;
   int chunkNum = 1;
@@ -113,7 +113,7 @@ float angleAtMinDist = 0;
       Serial.println("playing segment 2");
     }
 
-        if (chunkNum > 2.1 && chunkNum < 3){
+        if (chunkNum >= 2.1 && chunkNum <= 3){
           tone(PIEZO_PIN, NOTES[2]);
           Serial.println("playing segment 3");
         }
