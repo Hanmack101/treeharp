@@ -101,11 +101,9 @@ float angleAtMinDist = 0;
 
 
  void playNotes(){
-Serial.print("chunkNum in function is");
-Serial.println(chunkNum);
-chunkNum = minDistance/b;
+  chunkNum = minDistance/b;
 
- if (chunkNum >= 0.1 && chunkNum <= 1){
+ if (chunkNum >= -1 && chunkNum <= 1){
     tone(PIEZO_PIN, NOTES[0]);
         Serial.println("playing segment 1");
  }
@@ -118,7 +116,12 @@ chunkNum = minDistance/b;
         if (chunkNum > 2.1 && chunkNum < 3){
           tone(PIEZO_PIN, NOTES[2]);
           Serial.println("playing segment 3");
-    }
+        }
+
+          else if (chunkNum > (noteArrayLength + 1)){
+                 noTone(PIEZO_PIN);
+                 Serial.println("you're too far away");
+          }
 }
  
 //  void initiate5String()
