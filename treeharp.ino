@@ -48,12 +48,18 @@ CRGB leds[16];
 // Need GDE for twinkle twinkle G 392  D 294 E 330
 //if you need more than 4 notes, at the moment you will need to manually add to the function.
 const int NOTES[] = {
-    330, // E
-    494, // B
-    392, // G
-    440, // A
-    494 // B
+    
+    294,  // D4
+    330,  //E4
+    370,  //FS4 
+    392,  // G4
+    440,  // A4
+    494,  // B4
+    554,  //CS5
+    587   //D5
     };
+
+    //D MAJOR D – E – F# – G – A – B – C# – D. 
   
 const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 
@@ -62,7 +68,7 @@ const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 float minDistance = 100000;
 float angleAtMinDist = 0;
 
-  int maxDist = 300;   
+  int maxDist = 500;   
   int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
   int b = maxDist/ noteArrayLength;
   int chunkNum = 1;
@@ -81,6 +87,8 @@ float angleAtMinDist = 0;
       Serial.begin(9600);
       Serial.print("The length of the array is");
       Serial.println(noteArrayLength);
+      Serial.print("The size of each chunk is: ");
+      Serial.println(b);
     
     // set pin modes
       pinMode(RPLIDAR_MOTOR, OUTPUT);
@@ -113,6 +121,27 @@ float angleAtMinDist = 0;
               tone(PIEZO_PIN, NOTES[3]);
               Serial.println("playing segment 4");
         }
+        //4 extra
+
+           if (chunkNum >= 4.1 && chunkNum <= 5){
+              tone(PIEZO_PIN, NOTES[4]);
+              Serial.println("playing segment 5");
+            }
+
+              if (chunkNum >= 5.1 && chunkNum <= 6){
+                tone(PIEZO_PIN, NOTES[5]);
+                Serial.println("playing segment 6");
+              }
+
+                if (chunkNum >= 6.1 && chunkNum <= 7){
+                  tone(PIEZO_PIN, NOTES[6]);
+                  Serial.println("playing segment 7");
+                }
+
+                  if (chunkNum >= 7.1 && chunkNum <= 8){
+                    tone(PIEZO_PIN, NOTES[7]);
+                    Serial.println("playing segment 8");
+                  }
 
           else if (chunkNum > (noteArrayLength + 1)){
                  noTone(PIEZO_PIN);
