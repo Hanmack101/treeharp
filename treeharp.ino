@@ -1,10 +1,10 @@
 /*
-import libraries and basic structure 
-use min distance - may be able to reuse a lot of the space segmenter previously built
-- remove angle segmentation
+Working version of the tree stump harp. Currently set to play D major. 
+Array must be called NOTES and the notes can be changed to reflect any scale.
+Refactor: 
+1)Tone melody (a better way to do notes array) can be found here: https://www.arduino.cc/en/Tutorial/toneMelody)
+2) if  you needed 100 segments it would take forever
 
--write bacis segmenter
--refactor to divide by the length of the NOTES array
 
 for reference 
 *  262, // C
@@ -48,7 +48,7 @@ CRGB leds[16];
 // Need GDE for twinkle twinkle G 392  D 294 E 330
 //if you need more than 4 notes, at the moment you will need to manually add to the function.
 const int NOTES[] = {
-    
+
     294,  // D4
     330,  //E4
     370,  //FS4 
@@ -60,7 +60,7 @@ const int NOTES[] = {
     };
 
     //D MAJOR D – E – F# – G – A – B – C# – D. 
-  
+
 const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 
 // ADDING OTHER VARIABLES ------------------------------------------------------------------
@@ -68,13 +68,13 @@ const byte PIEZO_PIN = 6; //connct buzzer to pin 6
 float minDistance = 100000;
 float angleAtMinDist = 0;
 
-  int maxDist = 400;   
+  int maxDist = 700;   
   int noteArrayLength = sizeof(NOTES) / sizeof(NOTES[0]);
   int b = maxDist/ noteArrayLength;
   int chunkNum = 1;
-  
 
-  
+
+
 
 // SETUP ------------------------------------------------------------------
 
@@ -83,14 +83,14 @@ float angleAtMinDist = 0;
     // bind the RPLIDAR driver to the arduino hardware serial
       lidar.begin(Serial2);
       FastLED.addLeds<NEOPIXEL, 6>(leds, 16);
-      
+
       Serial.begin(9600);
       Serial.print("The length of the array is");
       Serial.println(noteArrayLength);
       Serial.print("The size of each chunk is: ");
       Serial.println(b);
 
-    
+
     // set pin modes
       pinMode(RPLIDAR_MOTOR, OUTPUT);
       //digitalWrite(LED_ENABLE, HIGH);
@@ -149,7 +149,7 @@ float angleAtMinDist = 0;
                  Serial.println("you're too far away");
           }
 }
- 
+
 // END OF FUNCTIONS ------------------------------------------------------------------------------ //
 
 // SETUP ------------------------------------------------------------------
@@ -167,7 +167,7 @@ void loop()
     {
       if (minDistance < 100000)
       {
-            
+
             playNotes();
             Serial.println(minDistance);  
             Serial.print("The current chunkNum is "); 
@@ -176,7 +176,7 @@ void loop()
           if (b <= 123) {
                 Serial.println("WARNING: NO TONE CHUNK SIZE TOO SMALL TO ACCOMODATE CLOSEST SOUND.");
                 Serial.println ( "INCREASE maxDist OR REDUCE NUMBER OF ITEMS IN NOTES ARRAY");
-                noTone(PIEZO_PIN);
+                //noTone(PIEZO_PIN);
           } 
         }
         else 
@@ -187,7 +187,7 @@ void loop()
       minDistance = 100000;
       //chunkNum = 11;
     }
-    
+
       else
       {
         if (distance > 0 && distance < minDistance)
@@ -199,11 +199,11 @@ void loop()
         }
       }
   }
-  
+
   else
   {
     analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
-    
+
     // try to detect RPLIDAR... 
     rplidar_response_device_info_t info;
     if (IS_OK(lidar.getDeviceInfo(info, 100)))
